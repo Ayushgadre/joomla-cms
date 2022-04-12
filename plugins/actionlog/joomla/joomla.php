@@ -143,18 +143,7 @@ class PlgActionlogJoomla extends ActionLogPlugin
 		$this->addLog(array($message), $messageLanguageKey, $context);
 	}
 
-	/**
-	 * After delete content logging method
-	 * This method adds a record to #__action_logs contains (message, date, context, user)
-	 * Method is called right after the content is deleted
-	 *
-	 * @param   string  $context  The context of the content passed to the plugin
-	 * @param   object  $article  A JTableContent object
-	 *
-	 * @return  void
-	 *
-	 * @since   3.9.0
-	 */
+	
 	public function onContentAfterDelete($context, $article): void
 	{
 		$option = $this->app->input->get('option');
@@ -194,19 +183,7 @@ class PlgActionlogJoomla extends ActionLogPlugin
 		$this->addLog(array($message), $messageLanguageKey, $context);
 	}
 
-	/**
-	 * On content change status logging method
-	 * This method adds a record to #__action_logs contains (message, date, context, user)
-	 * Method is called when the status of the article is changed
-	 *
-	 * @param   string   $context  The context of the content passed to the plugin
-	 * @param   array    $pks      An array of primary key ids of the content that has changed state.
-	 * @param   integer  $value    The value of the state that the content has been changed to.
-	 *
-	 * @return  void
-	 *
-	 * @since   3.9.0
-	 */
+	
 	public function onContentChangeState($context, $pks, $value)
 	{
 		$option = $this->app->input->getCmd('option');
@@ -255,7 +232,7 @@ class PlgActionlogJoomla extends ActionLogPlugin
 				break;
 		}
 
-		// If the content type doesn't has it own language key, use default language key
+		
 		if (!$this->app->getLanguage()->hasKey($messageLanguageKey))
 		{
 			$messageLanguageKey = $defaultLanguageKey;
@@ -295,16 +272,7 @@ class PlgActionlogJoomla extends ActionLogPlugin
 		$this->addLog($messages, $messageLanguageKey, $context);
 	}
 
-	/**
-	 * On Saving application configuration logging method
-	 * Method is called when the application config is being saved
-	 *
-	 * @param   \Joomla\Registry\Registry  $config  Registry object with the new config
-	 *
-	 * @return  void
-	 *
-	 * @since   3.9.0
-	 */
+	
 	public function onApplicationAfterSave($config): void
 	{
 		$option = $this->app->input->getCmd('option');
@@ -327,18 +295,7 @@ class PlgActionlogJoomla extends ActionLogPlugin
 		$this->addLog(array($message), $messageLanguageKey, 'com_config.application');
 	}
 
-	/**
-	 * On installing extensions logging method
-	 * This method adds a record to #__action_logs contains (message, date, context, user)
-	 * Method is called when an extension is installed
-	 *
-	 * @param   Installer   $installer  Installer object
-	 * @param   integer     $eid        Extension Identifier
-	 *
-	 * @return  void
-	 *
-	 * @since   3.9.0
-	 */
+	
 	public function onExtensionAfterInstall($installer, $eid)
 	{
 		$context = $this->app->input->get('option');
@@ -357,7 +314,7 @@ class PlgActionlogJoomla extends ActionLogPlugin
 
 		$extensionType = $manifest->attributes()->type;
 
-		// If the extension type has it own language key, use it, otherwise, use default language key
+		
 		if ($this->app->getLanguage()->hasKey(strtoupper('PLG_ACTIONLOG_JOOMLA_' . $extensionType . '_INSTALLED')))
 		{
 			$messageLanguageKey = 'PLG_ACTIONLOG_JOOMLA_' . $extensionType . '_INSTALLED';
@@ -378,19 +335,7 @@ class PlgActionlogJoomla extends ActionLogPlugin
 		$this->addLog(array($message), $messageLanguageKey, $context);
 	}
 
-	/**
-	 * On uninstalling extensions logging method
-	 * This method adds a record to #__action_logs contains (message, date, context, user)
-	 * Method is called when an extension is uninstalled
-	 *
-	 * @param   Installer  $installer  Installer instance
-	 * @param   integer    $eid        Extension id
-	 * @param   integer    $result     Installation result
-	 *
-	 * @return  void
-	 *
-	 * @since   3.9.0
-	 */
+	
 	public function onExtensionAfterUninstall($installer, $eid, $result)
 	{
 		$context = $this->app->input->get('option');
@@ -487,18 +432,7 @@ class PlgActionlogJoomla extends ActionLogPlugin
 		$this->addLog(array($message), $messageLanguageKey, $context);
 	}
 
-	/**
-	 * On Saving extensions logging method
-	 * Method is called when an extension is being saved
-	 *
-	 * @param   string   $context  The extension
-	 * @param   Table    $table    DataBase Table object
-	 * @param   boolean  $isNew    If the extension is new or not
-	 *
-	 * @return  void
-	 *
-	 * @since   3.9.0
-	 */
+	
 	public function onExtensionAfterSave($context, $table, $isNew): void
 	{
 		$option = $this->app->input->getCmd('option');
@@ -552,17 +486,7 @@ class PlgActionlogJoomla extends ActionLogPlugin
 		$this->addLog(array($message), $messageLanguageKey, $context);
 	}
 
-	/**
-	 * On Deleting extensions logging method
-	 * Method is called when an extension is being deleted
-	 *
-	 * @param   string  $context  The extension
-	 * @param   Table   $table    DataBase Table object
-	 *
-	 * @return  void
-	 *
-	 * @since   3.9.0
-	 */
+	
 	public function onExtensionAfterDelete($context, $table): void
 	{
 		if (!$this->checkLoggable($this->app->input->get('option')))
